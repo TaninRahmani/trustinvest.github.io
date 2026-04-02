@@ -1,12 +1,12 @@
 const CACHE = "trustinves-pwa-v6"; // <-- bump this every time you update
 
 const ASSETS = [
-  "/trustinvest/",
-  "/trustinvest/index.html",
-  "/trustinvest/manifest.json",
-  "/trustinvest/icon-192.png",
-  "/trustinvest/icon-512.png",
-  "/trustinvest/sw.js"
+  "/trustinvest.github.io/",
+  "/trustinvest.github.io/index.html",
+  "/trustinvest.github.io/manifest.json",
+  "/trustinvest.github.io/icon-192.png",
+  "/trustinvest.github.io/icon-512.png",
+  "trustinvest.github.io/sw.js"
 ];
 
 self.addEventListener("install", (event) => {
@@ -42,7 +42,7 @@ self.addEventListener("fetch", (event) => {
         return fresh;
       } catch (e) {
         const cached = await caches.match(req);
-        return cached || caches.match("/trustinvest/index.html");
+        return cached || caches.match("/trustinvest.github.io/index.html");
       }
     })());
     return;
