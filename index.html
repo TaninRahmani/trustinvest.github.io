@@ -821,6 +821,55 @@ datasets:[{
 });
 </script>
 
+  <button id="installBtn" style="
+  position: fixed;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  padding: 14px 16px;
+  border: 0;
+  border-radius: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  display: none;
+  z-index: 9999;
+">
+  Install TrustInvest
+</button>
+ <script>
+  let deferredPrompt = null;
+  const installBtn = document.getElementById("installBtn");
+
+  // وقتی مرورگر اجازه نصب داد، دکمه را نشان بده
+  window.addEventListener("beforeinstallprompt", (e) => {
+    e.preventDefault();          // جلوگیری از بنر خودکار مرورگر
+    deferredPrompt = e;          // ذخیره کردن event
+    installBtn.style.display = "block";
+  });
+
+  // کلیک روی دکمه نصب
+  installBtn.addEventListener("click", async () => {
+    if (!deferredPrompt) return;
+
+    deferredPrompt.prompt();     // نمایش پنجره نصب
+    const choice = await deferredPrompt.userChoice;
+
+    // بعد از انتخاب کاربر، دکمه را مخفی کن
+    deferredPrompt = null;
+    installBtn.style.display = "none";
+  });
+
+  // اگر نصب شد، دکمه را مخفی کن
+  window.addEventListener("appinstalled", () => {
+    installBtn.style.display = "none";
+  });
+</script>
+<script>
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("/trustinvest/sw.js");
+  }
+</script>
+
 <script>
 let pageChanged = false;
 
