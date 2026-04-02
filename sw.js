@@ -1,12 +1,12 @@
-const CACHE = "cryptobs-pwa-v6"; // <-- bump this every time you update
+const CACHE = "trustinves-pwa-v6"; // <-- bump this every time you update
 
 const ASSETS = [
-  "/cryptobs/",
-  "/cryptobs/index.html",
-  "/cryptobs/manifest.json",
-  "/cryptobs/icon-192.png",
-  "/cryptobs/icon-512.png",
-  "/cryptobs/sw.js"
+  "/trustinvest/",
+  "/trustinvest/index.html",
+  "/trustinvest/manifest.json",
+  "/trustinvest/icon-192.png",
+  "/trustinvest/icon-512.png",
+  "/trustinvest/sw.js"
 ];
 
 self.addEventListener("install", (event) => {
@@ -42,7 +42,7 @@ self.addEventListener("fetch", (event) => {
         return fresh;
       } catch (e) {
         const cached = await caches.match(req);
-        return cached || caches.match("/cryptobs/index.html");
+        return cached || caches.match("/trustinvest/index.html");
       }
     })());
     return;
