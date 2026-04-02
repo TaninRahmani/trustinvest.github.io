@@ -6,7 +6,7 @@ const ASSETS = [
   "/taninrahmani.github.io/trustinvest.github.io/manifest.json",
   "/taninrahmani.github.io/trustinvest.github.io/icon-192.png",
   "/taninrahmani.github.io/trustinvest.github.io/icon-512.png",
-  "taninrahmani.github.io/trustinvest.github.io/sw.js"
+  "/taninrahmani.github.io/trustinvest.github.io/sw.js"
 ];
 
 self.addEventListener("install", (event) => {
